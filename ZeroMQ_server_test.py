@@ -1,17 +1,15 @@
 import zmq
 import time
+import zmqnumpy as znp
+import numpy as np
 
 context = zmq.Context()
 socket = context.socket(zmq.REP)
 socket.bind("tcp://*:9010")
 
 while True:
-    # wait for next request from client
-    message = socket.recv()
-    print("Received request: %s" % message)
-
-    # Do some 'work'
+    print("try recieve from client...")
+    received_npArr = znp.recv_array(socket)
+    print(np.shape(received_npArr))
     time.sleep(1)
-
-    #send reply back to client
-    socket.send(b"World")
+    socket.send(b"received npArr")
