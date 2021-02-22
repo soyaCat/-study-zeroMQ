@@ -15,5 +15,6 @@ def recv_array(socket, flags=0, copy=True, track=False):
     md = socket.recv_json(flags=flags)
     msg = socket.recv(flags=flags, copy=copy, track=track)
     buf = memoryview(msg)
+    #In python 2.7 use buffer instead of memoryview
     A = numpy.frombuffer(buf, dtype=md['dtype'])
     return A.reshape(md['shape'])
